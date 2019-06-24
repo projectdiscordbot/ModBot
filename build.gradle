@@ -1,9 +1,11 @@
 plugins {
     id 'java'
     id 'idea'
+    id 'application'
 }
 
 group 'com.github.projectdiscordbot'
+mainClassName = "com.github.projectdiscordbot.Main"
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
@@ -22,6 +24,6 @@ dependencies {
     compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.11.2'
 
     compileOnly 'org.projectlombok:lombok:1.18.8'
-    
+
     annotationProcessor 'org.projectlombok:lombok:1.18.8'
 }
