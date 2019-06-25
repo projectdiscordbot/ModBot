@@ -1,5 +1,6 @@
 package com.github.projectdiscordbot.database.models;
 
+import com.github.projectdiscordbot.database.models.guild.GuildEnabledModules;
 import dev.morphia.annotations.Embedded;
 import dev.morphia.annotations.Entity;
 import dev.morphia.annotations.Id;
