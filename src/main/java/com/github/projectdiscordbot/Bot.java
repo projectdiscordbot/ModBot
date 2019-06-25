@@ -1,8 +1,9 @@
 package com.github.projectdiscordbot;
 
 import com.github.projectdiscordbot.configuration.Configuration;
+import com.github.projectdiscordbot.database.DatabaseFactory;
 import com.github.projectdiscordbot.listeners.MessageListener;
-import lombok.AllArgsConstructor;
+import dev.morphia.Datastore;
 import lombok.Getter;
 import lombok.val;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
@@ -16,16 +17,38 @@ import javax.security.auth.login.LoginException;
  * @since 1.0
  */
 @Getter
-@AllArgsConstructor
 public class Bot {
     private Configuration configuration;
+    private static Bot instance;
+    private Datastore datastore;
+
+    public Bot(Configuration configuration) {
+        this.configuration = configuration;
+
+        instance = this;
+    }
+
+    /**
+     * Connect bot to database and Discord gateway
+     */
+    public void connect() throws LoginException {
+        connectDatabase();
+        connectDiscord();
+    }
+
+    /**
+     * Connect to MongoDB database
+     */
+    private void connectDatabase() {
+        datastore = DatabaseFactory.getInstance(configuration);
+    }
 
     /**
      * Connect to Discord API gateway
      *
      * @throws LoginException if login failed, possibly due to an invalid token, or a network error.
      */
-    public void connect() throws LoginException {
+    private void connectDiscord() throws LoginException {
         val builder = new DefaultShardManagerBuilder();
 
         builder.setToken(getConfiguration().getAccessToken());

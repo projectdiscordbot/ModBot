@@ -5,4 +5,5 @@ import lombok.Data;
 @Data
 public class Configuration {
     private String accessToken;
+    private String databaseUrl;
 }
